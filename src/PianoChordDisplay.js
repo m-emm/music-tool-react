@@ -15,7 +15,18 @@ class PianoChordDisplay extends Component {
 
   render() {
     return (
+      <div>
+      <div className="row">
+      <div className="col-md-3">
+      <span className="h1">{this.props.chord}</span>
+      </div>
+      <div className="col-md-9">
+      </div>
+      </div>
+      <div className="row">
+      <div className="col-md-12">
       <div className="PianoChordDisplay">
+
       <svg width="100%" viewBox="0 0 1680 150" version="1.1" xmlns="http://www.w3.org/2000/svg">
 <g>
 <g id="octave-1">
@@ -24,16 +35,19 @@ class PianoChordDisplay extends Component {
 </g>
 </svg>
       </div>
+</div>
+</div>
+</div>
     );
   }
 
 allKeys() {
-  var allKeys = R.range(0,29);
+  var allKeys = R.range(0,36);
   var transformedKeys = R.map(this.keyTransform,allKeys);
   var blackCoords = R.filter(this.isBlackCoord,transformedKeys);
   var whiteCoords = R.reject(this.isBlackCoord,transformedKeys);
 
-  var notes = Chord.notes("Dmaj7")
+  var notes = Chord.notes(this.props.chord);
   console.log(JSON.stringify(notes));
   var chordNotes = R.map(Note.chroma,notes);
   chordNotes = R.concat([R.head(chordNotes)],R.map(R.add(12),R.tail(chordNotes)));

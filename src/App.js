@@ -7,14 +7,17 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        <PianoChordDisplay/>
+        <PianoChordDisplay chord="B7#5#9"/>
+        <PianoChordDisplay chord="Em7"/>
+        <PianoChordDisplay chord="Gm7"/>
+        <PianoChordDisplay chord="Bbmaj7"/>
+        <PianoChordDisplay chord="Bm7b5"/>
+        <PianoChordDisplay chord="E7#9"/>
+        <PianoChordDisplay chord="Am7"/>
+        <PianoChordDisplay chord="F#m7b5"/>
+        <PianoChordDisplay chord="Fm7"/>
+        <PianoChordDisplay chord="Cm11"/>
+        <PianoChordDisplay chord="B7#5#9"/>
       </div>
 
     );

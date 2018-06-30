@@ -1,0 +1,52 @@
+.note-ellipse {
+  fill: black;
+  stroke: black;
+  stroke-width: 1;
+}
+
+.note-stem {
+  stroke:#131516;
+  stroke-width:9;
+}
+.staff-line {
+  stroke:#131516;
+  stroke-width:7;
+}
+
+.clef {
+  fill:#131516;
+  fill-rule:evenodd;
+  stroke:#131516;
+  stroke-width:0.60229105
+}
+
+.bass-clef {
+  fill:#13.1516;
+  stroke:#13.1516;
+  stroke-width:3
+}
+
+.piano-key {
+  stroke: #3b3636;
+  fill: #fff;
+  -fill: #efefef;
+}
+.piano-key.black {
+  stroke: #3b3636;
+  -fill: #efefef;
+  fill: #000;
+}
+.piano-key.active {
+  fill: #e9d7f5;
+}
+.piano-key.black.active {
+  fill: #e9d7f5;
+  -fill: #a077b9;
+}
+.piano-key.white.tonic {
+  fill: #a077b9;
+}
+.piano-key.black.tonic {
+  fill: #a077b9;
+  -fill: #54c5c5;
+}

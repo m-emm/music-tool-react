@@ -50,13 +50,19 @@ allKeys() {
   var notes = Chord.notes(this.props.chord);
   console.log(JSON.stringify(notes));
   var chordNotes = R.map(Note.chroma,notes);
-  chordNotes = R.concat([R.head(chordNotes)],R.map(R.add(12),R.tail(chordNotes)));
+  var extendedOctave = R.map(R.add(24),R.tail(chordNotes));
+  var root = R.head(chordNotes);
+  chordNotes = R.map(R.add(12),R.tail(chordNotes));
+//  chordNotes = R.concat(chordNotes,extendedOctave);
   var transformedDots = this.transformDots(chordNotes);
   var blackDots = R.map(R.compose(R.add(keyWidth/2), R.multiply(keyWidth)),transformedDots.black);
   var whiteDots = R.map(R.compose(R.add(keyWidth/2), R.multiply(keyWidth)),transformedDots.white);
   var blackDotsxy = R.map(R.pair(R.__,blackDotYOffset),blackDots);
   var whiteDotsxy = R.map(R.pair(R.__,whiteDotYOffset),whiteDots);
   var allDots = R.concat(blackDotsxy,whiteDotsxy);
+  var extendedDots = this.transformAndPlaceDots(extendedOctave);
+  var extendedRoot = this.transformAndPlaceDots([root+12]);
+  var rootDot = this.transformAndPlaceDots([root]);
 
 
   console.log(JSON.stringify(blackDotsxy));
@@ -65,8 +71,19 @@ allKeys() {
   console.log("White Keys: " + whiteCoords);
 
 
-  return <g>{this.whiteKeys(whiteCoords)}{this.blackKeys(blackCoords)}{this.dots(allDots)}</g>;
+  return <g>{this.whiteKeys(whiteCoords)}{this.blackKeys(blackCoords)}{this.dots(rootDot,"green")}{this.dots(allDots,"red")}{this.dots(extendedDots,"grey")}{this.dots(extendedRoot,"darkgreen",dotRadius*0.7)}</g>;
 }
+
+transformAndPlaceDots(dots) {
+  var transformedDots = this.transformDots(dots);
+  var blackDots = R.map(R.compose(R.add(keyWidth/2), R.multiply(keyWidth)),transformedDots.black);
+  var whiteDots = R.map(R.compose(R.add(keyWidth/2), R.multiply(keyWidth)),transformedDots.white);
+  var blackDotsxy = R.map(R.pair(R.__,blackDotYOffset),blackDots);
+  var whiteDotsxy = R.map(R.pair(R.__,whiteDotYOffset),whiteDots);
+  var allDots = R.concat(blackDotsxy,whiteDotsxy);
+  return allDots;
+}
+
    whiteKeys(coords) {
     var keyCoords = R.map(R.multiply(keyWidth), coords);
     var id =0;
@@ -83,11 +100,11 @@ allKeys() {
    },keyCoords);
  }
 
- dots(coords) {
-
+ dots(coords,color,radius) {
+  var drawRadius = radius || dotRadius;
   var id =0;
   return R.map(function(coord) {
-    return <circle cx={coord[0]} cy={coord[1]} r={dotRadius} stroke="black" stroke-width="1" fill="red"/>
+    return <circle cx={coord[0]} cy={coord[1]} r={drawRadius} stroke="black" stroke-width="1" fill={color}/>
   },coords);
 }
 
